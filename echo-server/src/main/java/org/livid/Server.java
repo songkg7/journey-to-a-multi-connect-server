@@ -17,22 +17,8 @@ public class Server {
 
             // Accept multiple clients sequentially
             while (true) {
-                try (
-                        Socket clientSocket = serverSocket.accept();
-                        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
-                ) {
-
-                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
-                    String inputLine;
-                    while ((inputLine = in.readLine()) != null) {
-                        System.out.println("Received: " + inputLine);
-                        out.println("Echo: " + inputLine);
-                    }
-                    System.out.println("Client disconnected.");
-                } catch (IOException e) {
-                    System.out.println("Exception in connection with client: " + e.getMessage());
-                }
+                Socket clientSocket = serverSocket.accept();
+                new Thread(new ClientHandler(clientSocket)).start();
             }
         } catch (IOException e) {
             System.out.println("Could not listen on port " + PORT + ": " + e.getMessage());
