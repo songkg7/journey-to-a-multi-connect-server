@@ -7,8 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client {
+    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
 
@@ -20,8 +23,7 @@ public class Client {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 Scanner scanner = new Scanner(System.in)
         ) {
-
-            System.out.println("Connected to server at " + HOST + ":" + PORT);
+            LOGGER.info("Connected to server at " + HOST + ":" + PORT);
             String userInput;
             while (true) {
                 System.out.print("Enter message: ");
@@ -31,12 +33,12 @@ public class Client {
                 }
                 out.println(userInput);
                 String response = in.readLine();
-                System.out.println("Server response: " + response);
+                LOGGER.log(Level.INFO, "Server response: {0}", response);
             }
         } catch (UnknownHostException e) {
-            System.out.println("Server not found: " + e.getMessage());
+            LOGGER.severe("Server not found: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("I/O error: " + e.getMessage());
+            LOGGER.severe("I/O error: " + e.getMessage());
         }
     }
 }
