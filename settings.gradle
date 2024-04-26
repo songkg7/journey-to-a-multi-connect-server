@@ -1,0 +1,3 @@
+rootProject.name = 'network-study-code-sample'
+include 'client'
+include 'echo-server'
