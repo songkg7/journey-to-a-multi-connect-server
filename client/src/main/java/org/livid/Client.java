@@ -29,6 +29,7 @@ public class Client {
                 System.out.print("Enter message: ");
                 userInput = scanner.nextLine();
                 if ("quit".equalsIgnoreCase(userInput)) {
+                    out.println(userInput);
                     break;
                 }
                 out.println(userInput);
