@@ -39,6 +39,7 @@ public class Client {
         } catch (UnknownHostException e) {
             LOGGER.severe("Server not found: " + e.getMessage());
         } catch (IOException e) {
+            e.printStackTrace();
             LOGGER.severe("I/O error: " + e.getMessage());
         }
     }
